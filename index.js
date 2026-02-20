@@ -192,6 +192,38 @@ class MemoryServer {
       res.json({ status: 'ok', tools: ['memory_add', 'memory_query', 'memory_count', 'memory_clear'] });
     });
     
+    // REST API for testing
+    app.use(express.json());
+    
+    app.post('/memory/add', async (req, res) => {
+      await this.ensureTable();
+      const id = crypto.randomUUID();
+      const { content, memory_type = "context", tags = [], source_agent = "unknown" } = req.body;
+      await this.table.add([{ id, content, memory_type, tags: tags.join(','), source_agent, vector: this.getEmbedding(content) }]);
+      res.json({ memory_id: id, status: "added" });
+    });
+    
+    app.post('/memory/query', async (req, res) => {
+      await this.ensureTable();
+      const { query, limit = 10 } = req.body;
+      const results = await this.table.search(this.getEmbedding(query)).limit(limit).execute();
+      const memories = results.filter(r => r.id !== "_init_").map(r => ({ id: r.id, content: r.content, memory_type: r.memory_type, distance: r._distance }));
+      res.json(memories);
+    });
+    
+    app.get('/memory/count', async (req, res) => {
+      await this.ensureTable();
+      const results = await this.table.search(this.getEmbedding("")).limit(1000).execute();
+      const count = results.filter(r => r.id !== "_init_").length;
+      res.json({ count });
+    });
+    
+    app.post('/memory/clear', async (req, res) => {
+      await this.db.dropTable('memories').catch(() => {});
+      this.table = await this.db.createTable('memories', [{ id: "_init_", content: "_init_", memory_type: "system", tags: "", source_agent: "system", vector: this.getEmbedding("_init_") }]);
+      res.json({ status: "cleared" });
+    });
+    
     const server = createServer(app);
     server.listen(PORT, () => {
       console.error(`Memory MCP server running on http://127.0.0.1:${PORT}`);
