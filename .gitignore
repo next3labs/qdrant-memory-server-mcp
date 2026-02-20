@@ -1,9 +1,11 @@
 # Dependencies
 node_modules/
+npm-debug.log*
 
-# Database
+# Database (local data)
+*.lance/
 .memory/
-.memory-test/
+.memory-*/
 
 # IDE
 .vscode/
@@ -14,4 +16,3 @@ node_modules/
 
 # Logs
 *.log
-npm-debug.log*
