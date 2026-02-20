@@ -1,7 +1,13 @@
-# Standalone Qdrant Vector Database
+# Qdrant Memory Server Stack
 # Run: docker-compose up -d
-# API: http://localhost:6333
-# Dashboard: http://localhost:6333/dashboard
+#
+# Services:
+# - qdrant: Vector database (port 6333)
+# - memory-mcp: MCP server for OpenCode (port 8081)
+#
+# Environment variables for memory-mcp:
+# - QDRANT_URL: URL to Qdrant (default: http://qdrant:6333)
+# - QDRANT_API_KEY: Optional API key for Qdrant Cloud
 
 services:
   qdrant:
@@ -11,6 +17,20 @@ services:
       - "6334:6334"
     volumes:
       - qdrant_storage:/qdrant/storage
+    restart: unless-stopped
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
+      - QDRANT__SERVICE__HTTP_PORT=6333
+
+  memory-mcp:
+    build: .
+    ports:
+      - "8081:8081"
+    depends_on:
+      - qdrant
+    environment:
+      - QDRANT_URL=http://qdrant:6333
+      - QDRANT_API_KEY=${QDRANT_API_KEY:-}
     restart: unless-stopped
 
 volumes:

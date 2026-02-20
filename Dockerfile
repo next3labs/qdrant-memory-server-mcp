@@ -2,10 +2,13 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip install --no-cache-dir fastapi uvicorn pydantic qdrant-client sentence-transformers numpy
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY server.py qdrant_memory.py ./
+# Copy source
+COPY qdrant_memory.py .
+COPY mcp_server.py .
 
-EXPOSE 8001
-
-CMD ["python", "server.py"]
+# Run MCP server
+CMD ["python", "mcp_server.py"]
