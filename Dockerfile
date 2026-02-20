@@ -4,7 +4,10 @@ WORKDIR /app
 
 # Install dependencies
 COPY package*.json ./
-RUN npm install --omit=dev
+
+# Install LanceDB native library for Linux ARM64
+RUN npm install --omit=dev && \
+    npm install @lancedb/vectordb-linux-arm64-musl
 
 # Copy source
 COPY index.js ./
