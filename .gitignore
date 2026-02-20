@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Database
+.memory/
+.memory-test/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*

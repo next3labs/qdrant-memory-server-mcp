@@ -1,0 +1,19 @@
+# Memory Server Stack
+# Run: docker-compose up -d
+#
+# Services:
+# - memory-mcp: MCP server on port 7500
+#   - SSE mode: http://localhost:7500
+#   - Health: http://localhost:7500/health
+
+services:
+  memory-mcp:
+    build: .
+    ports:
+      - "7500:7500"
+    environment:
+      - MODE=sse
+      - PORT=7500
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
