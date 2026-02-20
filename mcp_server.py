@@ -167,9 +167,15 @@ async def handle_messages(request):
     return await sse_transport.handle_post_message(request.scope, request.receive)
 
 
+async def health(request):
+    """Health check endpoint."""
+    return JSONResponse({"status": "ok", "tools": ["memory_add", "memory_query", "memory_get", "memory_delete", "memory_count", "memory_clear"]})
+
+
 # Create Starlette app with SSE routes
 starlette_app = Starlette(
     routes=[
+        Route("/health", endpoint=health),
         Route("/sse", endpoint=handle_sse),
         Route("/messages", endpoint=handle_messages, methods=["POST"]),
     ]
@@ -178,6 +184,6 @@ starlette_app = Starlette(
 
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.environ.get("PORT", "8081"))
+    port = int(os.environ.get("PORT", "7500"))
     print(f"Starting MCP server on port {port}")
     uvicorn.run(starlette_app, host="0.0.0.0", port=port)
