@@ -23,13 +23,13 @@ services:
   memory-mcp:
     build: .
     ports:
-      - "8081:8081"
+      - "7500:7500"
     depends_on:
       - qdrant
     environment:
       - QDRANT_URL=http://qdrant:6333
       - QDRANT_API_KEY=${QDRANT_API_KEY:-}
-      - PORT=8081
+      - PORT=7500
     restart: unless-stopped
 
 volumes:
