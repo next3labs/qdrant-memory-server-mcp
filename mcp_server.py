@@ -1,20 +1,23 @@
 """
 MCP Server for Qdrant Memory.
-Provides vector-based memory storage as an MCP server.
+Provides vector-based memory storage as an MCP server with HTTP+SSE transport.
 """
 import os
 import sys
 from pathlib import Path
+import json
 
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from qdrant_memory import QdrantMemory
 from mcp.server import Server
-from mcp.server.stdio import stdio_server
+from mcp.server.sse import SseServerTransport
 from mcp.types import Tool, TextContent
-from pydantic import AnyUrl
-import json
+from starlette.applications import Starlette
+from starlette.routing import Route
+from starlette.responses import JSONResponse
+import asyncio
 
 # Initialize memory
 print("Initializing Qdrant memory...")
@@ -145,16 +148,36 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
         return [TextContent(type="text", text=json.dumps({"error": str(e)}))]
 
 
-async def main():
-    """Run the MCP server."""
-    async with stdio_server() as (read_stream, write_stream):
+# Create SSE server transport
+sse_transport = SseServerTransport("/messages/")
+
+
+async def handle_sse(request):
+    """Handle SSE connections."""
+    async with sse_transport.connect_sse(
+        request.scope, request.receive, {"type": "message"}
+    ) as streams:
         await app.run(
-            read_stream,
-            write_stream,
-            app.create_initialization_options()
+            streams[0], streams[1], app.create_initialization_options()
         )
 
 
+async def handle_messages(request):
+    """Handle messages from client."""
+    return await sse_transport.handle_post_message(request.scope, request.receive)
+
+
+# Create Starlette app with SSE routes
+starlette_app = Starlette(
+    routes=[
+        Route("/sse", endpoint=handle_sse),
+        Route("/messages", endpoint=handle_messages, methods=["POST"]),
+    ]
+)
+
+
 if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())
+    import uvicorn
+    port = int(os.environ.get("PORT", "8081"))
+    print(f"Starting MCP server on port {port}")
+    uvicorn.run(starlette_app, host="0.0.0.0", port=port)

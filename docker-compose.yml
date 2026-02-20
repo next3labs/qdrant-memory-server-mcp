@@ -8,6 +8,7 @@
 # Environment variables for memory-mcp:
 # - QDRANT_URL: URL to Qdrant (default: http://qdrant:6333)
 # - QDRANT_API_KEY: Optional API key for Qdrant Cloud
+# - PORT: MCP server port (default: 8081)
 
 services:
   qdrant:
@@ -18,9 +19,6 @@ services:
     volumes:
       - qdrant_storage:/qdrant/storage
     restart: unless-stopped
-    environment:
-      - QDRANT__SERVICE__GRPC_PORT=6334
-      - QDRANT__SERVICE__HTTP_PORT=6333
 
   memory-mcp:
     build: .
@@ -31,6 +29,7 @@ services:
     environment:
       - QDRANT_URL=http://qdrant:6333
       - QDRANT_API_KEY=${QDRANT_API_KEY:-}
+      - PORT=8081
     restart: unless-stopped
 
 volumes:
