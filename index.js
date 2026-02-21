@@ -180,12 +180,39 @@ class MemoryServer {
     const app = express();
     const transport = new SSEServerTransport('/messages/');
     
+    // Handle MCP initialize request
     app.get('/sse', async (req, res) => {
-      await transport.connect(req, res);
+      // Set CORS headers
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      
+      if (req.method === 'OPTIONS') {
+        res.status(200).end();
+        return;
+      }
+      
+      try {
+        await transport.connect(req, res);
+      } catch (e) {
+        console.error("SSE connection error:", e.message);
+        if (!res.headersSent) {
+          res.status(500).json({ error: e.message });
+        }
+      }
     });
     
     app.post('/messages', async (req, res) => {
-      await transport.handlePostMessage(req, res);
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      try {
+        await transport.handlePostMessage(req, res);
+      } catch (e) {
+        console.error("Message error:", e.message);
+        if (!res.headersSent) {
+          res.status(500).json({ error: e.message });
+        }
+      }
     });
     
     app.get('/health', (req, res) => {
