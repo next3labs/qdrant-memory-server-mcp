@@ -1,0 +1,235 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "index.js",
+      "file_type": "code",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L1",
+      "id": "users_limjoshua_kg_deploy_qdrant_memory_server_mcp_index_js",
+      "community": 0,
+      "norm_label": "index.js"
+    },
+    {
+      "label": "MemoryServer",
+      "file_type": "code",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L19",
+      "id": "index_memoryserver",
+      "community": 0,
+      "norm_label": "memoryserver"
+    },
+    {
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L20",
+      "id": "index_memoryserver_constructor",
+      "community": 0,
+      "norm_label": ".constructor()"
+    },
+    {
+      "label": ".ensureTable()",
+      "file_type": "code",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L32",
+      "id": "index_memoryserver_ensuretable",
+      "community": 2,
+      "norm_label": ".ensuretable()"
+    },
+    {
+      "label": ".getEmbedding()",
+      "file_type": "code",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L52",
+      "id": "index_memoryserver_getembedding",
+      "community": 2,
+      "norm_label": ".getembedding()"
+    },
+    {
+      "label": ".setupTools()",
+      "file_type": "code",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L66",
+      "id": "index_memoryserver_setuptools",
+      "community": 0,
+      "norm_label": ".setuptools()"
+    },
+    {
+      "label": ".runStdio()",
+      "file_type": "code",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L173",
+      "id": "index_memoryserver_runstdio",
+      "community": 1,
+      "norm_label": ".runstdio()"
+    },
+    {
+      "label": ".runSSE()",
+      "file_type": "code",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L179",
+      "id": "index_memoryserver_runsse",
+      "community": 1,
+      "norm_label": ".runsse()"
+    },
+    {
+      "label": ".run()",
+      "file_type": "code",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L260",
+      "id": "index_memoryserver_run",
+      "community": 1,
+      "norm_label": ".run()"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_src": "users_limjoshua_kg_deploy_qdrant_memory_server_mcp_index_js",
+      "_tgt": "index_memoryserver",
+      "source": "users_limjoshua_kg_deploy_qdrant_memory_server_mcp_index_js",
+      "target": "index_memoryserver",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_src": "index_memoryserver",
+      "_tgt": "index_memoryserver_constructor",
+      "source": "index_memoryserver",
+      "target": "index_memoryserver_constructor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_src": "index_memoryserver",
+      "_tgt": "index_memoryserver_ensuretable",
+      "source": "index_memoryserver",
+      "target": "index_memoryserver_ensuretable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_src": "index_memoryserver",
+      "_tgt": "index_memoryserver_getembedding",
+      "source": "index_memoryserver",
+      "target": "index_memoryserver_getembedding",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L66",
+      "weight": 1.0,
+      "_src": "index_memoryserver",
+      "_tgt": "index_memoryserver_setuptools",
+      "source": "index_memoryserver",
+      "target": "index_memoryserver_setuptools",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L173",
+      "weight": 1.0,
+      "_src": "index_memoryserver",
+      "_tgt": "index_memoryserver_runstdio",
+      "source": "index_memoryserver",
+      "target": "index_memoryserver_runstdio",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L179",
+      "weight": 1.0,
+      "_src": "index_memoryserver",
+      "_tgt": "index_memoryserver_runsse",
+      "source": "index_memoryserver",
+      "target": "index_memoryserver_runsse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L260",
+      "weight": 1.0,
+      "_src": "index_memoryserver",
+      "_tgt": "index_memoryserver_run",
+      "source": "index_memoryserver",
+      "target": "index_memoryserver_run",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_src": "index_memoryserver_constructor",
+      "_tgt": "index_memoryserver_setuptools",
+      "source": "index_memoryserver_constructor",
+      "target": "index_memoryserver_setuptools",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L42",
+      "weight": 1.0,
+      "_src": "index_memoryserver_ensuretable",
+      "_tgt": "index_memoryserver_getembedding",
+      "source": "index_memoryserver_ensuretable",
+      "target": "index_memoryserver_getembedding",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L266",
+      "weight": 1.0,
+      "_src": "index_memoryserver_run",
+      "_tgt": "index_memoryserver_runstdio",
+      "source": "index_memoryserver_runstdio",
+      "target": "index_memoryserver_run",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/limjoshua/kg-deploy/qdrant-memory-server-mcp/index.js",
+      "source_location": "L264",
+      "weight": 1.0,
+      "_src": "index_memoryserver_run",
+      "_tgt": "index_memoryserver_runsse",
+      "source": "index_memoryserver_runsse",
+      "target": "index_memoryserver_run",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": []
+}

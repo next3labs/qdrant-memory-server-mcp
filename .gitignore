@@ -16,3 +16,7 @@ npm-debug.log*
 
 # Logs
 *.log
+
+# graphify internals
+graphify-out/cache/
+graphify-out/.graphify_*
